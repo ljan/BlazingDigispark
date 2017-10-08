@@ -1,8 +1,9 @@
-unsigned long randtime = millis();
-unsigned long fadetime = millis();
+#define LEDpin      1   // LED on Model A
+
+unsigned long randMillis = millis();
+unsigned long fadeMillis = millis();
 int fadeAmount = 1;
 int brightness = 128;   // Brightness at start
-int LEDpin = 1;         // LED on Model A 
 
 // the setup routine runs once when you press reset:
 void setup() {
@@ -13,17 +14,17 @@ void setup() {
 void loop() {
   unsigned long currentMillis = millis();
   
-  if (randtime <= currentMillis) {
+  if (randMillis <= currentMillis) {
     fadeAmount = -fadeAmount;
-    randtime = currentMillis + random(100, 1000);
+    randMillis = currentMillis + random(100, 1000);
   }
 
-  if (fadetime <= currentMillis) {
+  if (fadeMillis <= currentMillis) {
     if (brightness <= 0 || brightness >= 255) {
       fadeAmount = -fadeAmount;
     }
     brightness = brightness + fadeAmount;
-    fadetime = currentMillis + 2;
+    fadeMillis = currentMillis + 2;
   }
 
   analogWrite(LEDpin, brightness);
